@@ -39,7 +39,7 @@
                 $scope.searchFilter = '';
 
                 $scope.resolvedOptions = [];
-                if (typeof $scope.options !== 'function') {
+                if ($scope.options && typeof $scope.options !== 'function') {
                     $scope.resolvedOptions = $scope.options;
                 }
 
@@ -101,9 +101,11 @@
                 };
                 
                 $scope.$watch('options', function(newVal) {
-                    $scope.options = newVal;
-                    $scope.resolvedOptions = newVal;
-                    updateSelectionLists();
+                    if (Array.isArray(newVal)) {
+                        $scope.options = newVal;
+                        $scope.resolvedOptions = newVal;
+                        updateSelectionLists();
+                    }
                 }, true);
 
                 var watcher = $scope.$watch('selectedOptions', function () {
