@@ -99,6 +99,12 @@
                         return true;
                     }
                 };
+                
+                $scope.$watch('options', function(newVal) {
+                    $scope.options = newVal;
+                    $scope.resolvedOptions = newVal;
+                    updateSelectionLists();
+                }, true);
 
                 var watcher = $scope.$watch('selectedOptions', function () {
                     $ngModelCtrl.$setViewValue(angular.copy($scope.selectedOptions));
